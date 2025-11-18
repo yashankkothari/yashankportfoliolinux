@@ -242,7 +242,7 @@ const App: React.FC = () => {
       case 'cv':
         addOutput(
            <div>
-              <p className="text-green-400 mb-2">>> Generating Resume Summary...</p>
+              <p className="text-green-400 mb-2">&gt;&gt; Generating Resume Summary...</p>
               <div className="bg-slate-900 p-4 border border-gray-700 text-sm rounded">
                  <h1 className="text-xl font-bold text-white">{RESUME.name}</h1>
                  <p className="text-gray-400">{RESUME.contact.email}</p>
@@ -287,29 +287,29 @@ const App: React.FC = () => {
         break;
       
       case 'email':
-        addOutput(<p>>> Opening mail client...</p>);
+        addOutput(<p>&gt;&gt; Opening mail client...</p>);
         window.location.href = `mailto:${RESUME.contact.email}`;
         break;
       
       case 'linkedin':
-        addOutput(<p>>> Opening LinkedIn profile...</p>);
+        addOutput(<p>&gt;&gt; Opening LinkedIn profile...</p>);
         window.open(`https://${RESUME.contact.linkedin}`, '_blank');
         break;
 
       case 'github':
       case 'gh':
-        addOutput(<p>>> Opening GitHub profile...</p>);
+        addOutput(<p>&gt;&gt; Opening GitHub profile...</p>);
         window.open(`https://${RESUME.contact.github}`, '_blank');
         break;
 
       case 'twitter':
-        addOutput(<p>>> Opening Twitter...</p>);
+        addOutput(<p>&gt;&gt; Opening Twitter...</p>);
         window.open(`https://${RESUME.contact.twitter}`, '_blank');
         break;
       
       case 'blog':
       case 'b':
-        addOutput(<p className="text-yellow-300">>> Blog is currently under construction. Check back later!</p>);
+        addOutput(<p className="text-yellow-300">&gt;&gt; Blog is currently under construction. Check back later!</p>);
         break;
 
       case 'misc':
@@ -472,7 +472,7 @@ const App: React.FC = () => {
         const googleQuery = args.slice(1).join(' ');
         if (!googleQuery) { addOutput(<p>Usage: google [query]</p>); break; }
         window.open(`https://www.google.com/search?q=${encodeURIComponent(googleQuery)}`, '_blank');
-        addOutput(<p>>> Opening Google Search for: {googleQuery}</p>);
+        addOutput(<p>&gt;&gt; Opening Google Search for: {googleQuery}</p>);
         break;
 
       case 'youtube':
@@ -480,14 +480,14 @@ const App: React.FC = () => {
         const ytQuery = args.slice(1).join(' ');
         if (!ytQuery) { addOutput(<p>Usage: youtube [query]</p>); break; }
         window.open(`https://www.youtube.com/results?search_query=${encodeURIComponent(ytQuery)}`, '_blank');
-        addOutput(<p>>> Opening YouTube Search for: {ytQuery}</p>);
+        addOutput(<p>&gt;&gt; Opening YouTube Search for: {ytQuery}</p>);
         break;
 
       case 'wiki':
         const wikiQuery = args.slice(1).join(' ');
         if (!wikiQuery) { addOutput(<p>Usage: wiki [query]</p>); break; }
         window.open(`https://en.wikipedia.org/wiki/Special:Search?search=${encodeURIComponent(wikiQuery)}`, '_blank');
-        addOutput(<p>>> Opening Wikipedia for: {wikiQuery}</p>);
+        addOutput(<p>&gt;&gt; Opening Wikipedia for: {wikiQuery}</p>);
         break;
 
       case 'calc':
@@ -497,7 +497,7 @@ const App: React.FC = () => {
             // Safe-ish evaluation for simple math
             // eslint-disable-next-line no-new-func
             const result = new Function('return ' + expr.replace(/[^0-9+\-*/().Math\s]/g, ''))();
-            addOutput(<p className="text-green-400">>> {result}</p>);
+            addOutput(<p className="text-green-400">&gt;&gt; {result}</p>);
         } catch (e) {
             addOutput(<p className="text-red-400">Error: Invalid expression</p>);
         }
@@ -505,26 +505,26 @@ const App: React.FC = () => {
 
       case 'snake':
         setMode(TerminalMode.GAME);
-        addOutput(<p className="text-green-400">>> Launching Snake.exe...</p>);
+        addOutput(<p className="text-green-400">&gt;&gt; Launching Snake.exe...</p>);
         break;
 
       case 'minesweeper':
       case 'mine':
         setMode(TerminalMode.MINESWEEPER);
-        addOutput(<p className="text-yellow-400">>> Launching Minesweeper...</p>);
+        addOutput(<p className="text-yellow-400">&gt;&gt; Launching Minesweeper...</p>);
         break;
 
       case 'tictactoe':
       case 'ttt':
         setMode(TerminalMode.TICTACTOE);
-        addOutput(<p className="text-blue-400">>> Launching Tic-Tac-Toe...</p>);
+        addOutput(<p className="text-blue-400">&gt;&gt; Launching Tic-Tac-Toe...</p>);
         break;
 
       case 'monitor':
       case 'htop':
       case 'top':
         setMode(TerminalMode.MONITOR);
-        addOutput(<p className="text-green-400">>> Initializing System Monitor...</p>);
+        addOutput(<p className="text-green-400">&gt;&gt; Initializing System Monitor...</p>);
         break;
 
       case 'whoami':
@@ -565,7 +565,7 @@ const App: React.FC = () => {
         const newTheme = args[1] as ThemeName;
         if (THEMES[newTheme]) {
           setTheme(newTheme);
-          addOutput(<p className="text-yellow-300">>> Theme changed to {newTheme}.</p>);
+          addOutput(<p className="text-yellow-300">&gt;&gt; Theme changed to {newTheme}.</p>);
         } else {
           addOutput(
             <p className="text-red-400">
@@ -577,7 +577,7 @@ const App: React.FC = () => {
       
       case 'matrix':
         setMatrixEnabled(prev => !prev);
-        addOutput(<p className="text-green-400">>> Matrix mode {matrixEnabled ? 'DEACTIVATED' : 'ACTIVATED'}.</p>);
+        addOutput(<p className="text-green-400">&gt;&gt; Matrix mode {matrixEnabled ? 'DEACTIVATED' : 'ACTIVATED'}.</p>);
         break;
 
       case 'sudo':
@@ -588,7 +588,7 @@ const App: React.FC = () => {
         }
         if (sudoCmd.includes('rm -rf /')) {
           setLoading(true);
-          addOutput(<p className="text-red-500 font-bold animate-pulse">>> SYSTEM DELETION INITIATED...</p>);
+          addOutput(<p className="text-red-500 font-bold animate-pulse">&gt;&gt; SYSTEM DELETION INITIATED...</p>);
           await new Promise(r => setTimeout(r, 1500));
           addOutput(<p className="text-red-500">Deleting /bin...</p>);
           await new Promise(r => setTimeout(r, 800));
@@ -600,7 +600,7 @@ const App: React.FC = () => {
           await new Promise(r => setTimeout(r, 2000));
           setHistory([]); // "Reboot"
           setLoading(false);
-          addOutput(<p className="text-green-500">>> System recovered. Don't do that again.</p>);
+          addOutput(<p className="text-green-500">&gt;&gt; System recovered. Don't do that again.</p>);
         } else {
            addOutput(<p className="text-yellow-400">guest is not in the sudoers file. This incident will be reported.</p>);
         }
@@ -643,9 +643,9 @@ const App: React.FC = () => {
       case 'startx':
       case 'gui':
         setLoading(true);
-        addOutput(<p className="text-green-400">>> Starting X11 Server...</p>);
+        addOutput(<p className="text-green-400">&gt;&gt; Starting X11 Server...</p>);
         await new Promise(r => setTimeout(r, 1000));
-        addOutput(<p className="text-green-400">>> Loading Desktop Environment (Arch)...</p>);
+        addOutput(<p className="text-green-400">&gt;&gt; Loading Desktop Environment (Arch)...</p>);
         await new Promise(r => setTimeout(r, 800));
         setViewMode(ViewMode.GUI);
         setLoading(false);
@@ -680,17 +680,17 @@ const App: React.FC = () => {
 
       case 'chat':
         setMode(TerminalMode.CHAT);
-        addOutput(<p className="text-blue-400">>> Initializing Neural Link with Gemini 3.0 Pro Preview... Connected.</p>);
+        addOutput(<p className="text-blue-400">&gt;&gt; Initializing Neural Link with Gemini 3.0 Pro Preview... Connected.</p>);
         addOutput(<p className="opacity-60">Type 'exit' to return to standard terminal.</p>);
         break;
 
       case 'edit_image':
         setMode(TerminalMode.IMAGE_EDIT);
-        addOutput(<p className="text-purple-400">>> Booting Nano Banana (Gemini 2.5 Flash Image) Module...</p>);
+        addOutput(<p className="text-purple-400">&gt;&gt; Booting Nano Banana (Gemini 2.5 Flash Image) Module...</p>);
         addOutput(
           <ImageEditor onClose={() => {
             setMode(TerminalMode.STANDARD);
-            addOutput(<p className="opacity-60">>> Module Closed.</p>);
+            addOutput(<p className="opacity-60">&gt;&gt; Module Closed.</p>);
           }} />,
           'component'
         );
@@ -727,7 +727,7 @@ const App: React.FC = () => {
     const trimmed = msg.trim();
     if (trimmed.toLowerCase() === 'exit') {
       setMode(TerminalMode.STANDARD);
-      addOutput(<p className="opacity-60">>> Disconnected from AI.</p>);
+      addOutput(<p className="opacity-60">&gt;&gt; Disconnected from AI.</p>);
       return;
     }
     
@@ -759,7 +759,7 @@ const App: React.FC = () => {
     } else if (mode === TerminalMode.IMAGE_EDIT) {
       if (input.trim() === 'exit') {
          setMode(TerminalMode.STANDARD);
-         addOutput(<p>>> Exited Image Editor.</p>);
+         addOutput(<p>&gt;&gt; Exited Image Editor.</p>);
       }
     }
 
@@ -789,28 +789,28 @@ const App: React.FC = () => {
   if (mode === TerminalMode.GAME) {
       return <SnakeGame onExit={() => {
           setMode(TerminalMode.STANDARD);
-          addOutput(<p className="text-yellow-300">>> Game Over / Quit</p>);
+          addOutput(<p className="text-yellow-300">&gt;&gt; Game Over / Quit</p>);
       }} />;
   }
 
   if (mode === TerminalMode.MINESWEEPER) {
       return <Minesweeper onExit={() => {
           setMode(TerminalMode.STANDARD);
-          addOutput(<p className="text-yellow-300">>> Minesweeper Closed.</p>);
+          addOutput(<p className="text-yellow-300">&gt;&gt; Minesweeper Closed.</p>);
       }} />;
   }
 
   if (mode === TerminalMode.TICTACTOE) {
       return <TicTacToe onExit={() => {
           setMode(TerminalMode.STANDARD);
-          addOutput(<p className="text-yellow-300">>> Tic-Tac-Toe Closed.</p>);
+          addOutput(<p className="text-yellow-300">&gt;&gt; Tic-Tac-Toe Closed.</p>);
       }} />;
   }
 
   if (mode === TerminalMode.MONITOR) {
       return <SystemMonitor onExit={() => {
           setMode(TerminalMode.STANDARD);
-          addOutput(<p className="text-green-300">>> Monitor Stopped.</p>);
+          addOutput(<p className="text-green-300">&gt;&gt; Monitor Stopped.</p>);
       }} />;
   }
 
@@ -836,7 +836,7 @@ const App: React.FC = () => {
                     if (lastLine.trim() === ':q!' || lastLine.trim() === ':wq') {
                         setMode(TerminalMode.STANDARD);
                         setVimContent('');
-                        addOutput(<p className="text-gray-500">>> Vim closed.</p>);
+                        addOutput(<p className="text-gray-500">&gt;&gt; Vim closed.</p>);
                     } else if (lastLine.startsWith(':')) {
                         setVimMessage(lastLine);
                     } else {

@@ -1,3 +1,4 @@
+
 import React, { useState, useRef } from 'react';
 import { editImageWithGemini } from '../services/geminiService';
 
@@ -49,7 +50,7 @@ const ImageEditor: React.FC<ImageEditorProps> = ({ onClose }) => {
   return (
     <div className="border border-purple-500 p-4 mt-2 mb-4 rounded bg-slate-900/80 max-w-3xl">
       <div className="flex justify-between items-center mb-4 border-b border-purple-500/30 pb-2">
-        <h3 className="text-purple-400 font-bold text-lg">>> NANO_BANANA_IMG_EDITOR_V2.5</h3>
+        <h3 className="text-purple-400 font-bold text-lg">&gt;&gt; NANO_BANANA_IMG_EDITOR_V2.5</h3>
         <button onClick={onClose} className="text-red-400 hover:text-red-300 font-bold">[X] CLOSE</button>
       </div>
 

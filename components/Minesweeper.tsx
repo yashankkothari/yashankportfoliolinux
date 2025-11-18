@@ -235,7 +235,7 @@ const Minesweeper: React.FC<MinesweeperProps> = ({ onExit }) => {
 
         {gameState !== 'playing' && (
           <div className={`mt-2 text-center font-bold animate-bounce ${gameState === 'won' ? 'text-green-400' : 'text-red-500'}`}>
-            {gameState === 'won' ? '>> MISSION ACCOMPLISHED <<' : '>> DETONATION DETECTED <<'}
+            {gameState === 'won' ? '&gt;&gt; MISSION ACCOMPLISHED &lt;&lt;' : '&gt;&gt; DETONATION DETECTED &lt;&lt;'}
           </div>
         )}
       </div>
