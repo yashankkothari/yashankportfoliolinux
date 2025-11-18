@@ -1,3 +1,4 @@
+
 import { ResumeData, ThemeName, ThemeColors } from './types';
 
 export const RESUME: ResumeData = {
@@ -96,12 +97,12 @@ export const RESUME: ResumeData = {
 };
 
 export const ASCII_HEADER = `
-  __   __      _     _             _    
-  \\ \\ / /__ _ | |_  | |__   _ __  | |_  
-   \\ V // _\` || __| | '_ \\ | '_ \\ | __| 
-    | || (_| || |_  | | | || | | || |_  
-    |_| \\__,_| \\__| |_| |_||_| |_| \\__| 
-                                        
+_____.___.             .__                   __    
+\\__  |   |____    _____|  |__ _____    ____ |  | __
+ /   |   \\__  \\  /  ___/  |  \\\\__  \\  /    \\|  |/ /
+ \\____   |/ __ \\_\\___ \\|   Y  \\/ __ \\|   |  \\    < 
+ / ______(____  /____  >___|  (____  /___|  /__|_ \\
+ \\/           \\/     \\/     \\/     \\/     \\/     \\/
 `;
 
 export const NEOFETCH_ART = `
@@ -155,7 +156,7 @@ export const SL_FRAMES = [
    |____|____|____|____|____|____|____|____|____|____|
  
  
- `, // Just a placeholder for actual frames, we will rely on css transform for movement
+ `, 
 ];
 
 export const VIRTUAL_FILES: Record<string, string> = {
@@ -188,5 +189,23 @@ export const THEMES: Record<ThemeName, ThemeColors> = {
     text: 'text-[#ff79c6]',
     prompt: 'text-[#50fa7b]',
     accent: 'text-[#bd93f9]'
+  },
+  cyberpunk: {
+    background: 'bg-[#0b0c15]',
+    text: 'text-[#00ff9f]',
+    prompt: 'text-[#d600ff]',
+    accent: 'text-[#00b8ff]'
+  },
+  forest: {
+    background: 'bg-[#1a2b1f]',
+    text: 'text-[#b4e197]',
+    prompt: 'text-[#e2e080]',
+    accent: 'text-[#8fbc8f]'
+  },
+  ocean: {
+    background: 'bg-[#0f1c2e]',
+    text: 'text-[#64feda]',
+    prompt: 'text-[#1f6feb]',
+    accent: 'text-[#58a6ff]'
   }
 };

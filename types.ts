@@ -1,10 +1,12 @@
+
 import React from 'react';
 
 export enum TerminalMode {
   STANDARD = 'STANDARD',
   CHAT = 'CHAT',
   IMAGE_EDIT = 'IMAGE_EDIT',
-  VIM = 'VIM'
+  VIM = 'VIM',
+  GAME = 'GAME'
 }
 
 export enum ViewMode {
@@ -67,7 +69,7 @@ export interface ResumeData {
   };
 }
 
-export type ThemeName = 'standard' | 'retro' | 'ubuntu' | 'dracula';
+export type ThemeName = 'standard' | 'retro' | 'ubuntu' | 'dracula' | 'cyberpunk' | 'forest' | 'ocean';
 
 export interface ThemeColors {
   background: string;

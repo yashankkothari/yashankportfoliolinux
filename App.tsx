@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect, useRef } from 'react';
 import { TerminalMode, TerminalLine, ThemeName, ViewMode } from './types';
 import { RESUME, ASCII_HEADER, NEOFETCH_ART, VIRTUAL_FILES, THEMES } from './constants';
@@ -5,7 +6,9 @@ import TerminalInput from './components/TerminalInput';
 import ImageEditor from './components/ImageEditor';
 import MatrixRain from './components/MatrixRain';
 import DesktopEnvironment from './components/DesktopEnvironment';
+import SnakeGame from './components/SnakeGame';
 import { chatWithGemini } from './services/geminiService';
+import { findBestMatch } from './utils';
 
 const App: React.FC = () => {
   const [history, setHistory] = useState<TerminalLine[]>([]);
@@ -70,7 +73,7 @@ const App: React.FC = () => {
             <p>Welcome to Yashank Kothari's interactive portfolio.</p>
             <p className="mt-2 opacity-80">Type <span className="text-yellow-300">help</span> to see available commands.</p>
             <p className="opacity-80">Try <span className="text-blue-400">chat</span> to talk to AI or <span className="text-purple-400">edit_image</span> for AI tools.</p>
-            <p className="opacity-60 text-xs mt-2">Pro Tip: Use Up/Down arrows for history. Try 'neofetch' or 'startx'.</p>
+            <p className="opacity-60 text-xs mt-2">Pro Tip: Use Up/Down arrows for history. Try 'neofetch', 'snake', or 'startx'.</p>
           </div>
         )
       }
@@ -100,18 +103,18 @@ const App: React.FC = () => {
               { cmd: 'about', desc: 'Who am I?' },
               { cmd: 'experience', desc: 'Work history' },
               { cmd: 'projects', desc: 'Github highlights' },
-              { cmd: 'skills', desc: 'Tech stack' },
+              { cmd: 'skills', desc: 'Tech stack (visual)' },
               { cmd: 'education', desc: 'Academic background' },
-              { cmd: 'contact', desc: 'Get in touch' },
+              { cmd: 'snake', desc: 'Play Snake Game' },
+              { cmd: 'calc [expr]', desc: 'Calculator' },
+              { cmd: 'google [q]', desc: 'Google Search' },
               { cmd: 'neofetch', desc: 'System Info' },
               { cmd: 'cat [file]', desc: 'Read file' },
               { cmd: 'chat', desc: 'AI Assistant (Gemini 3 Pro)' },
               { cmd: 'edit_image', desc: 'Nano Banana Image Editor' },
               { cmd: 'startx / gui', desc: 'Launch Desktop GUI (Arch Mode)' },
-              { cmd: 'theme [name]', desc: 'Change UI (retro, ubuntu, dracula)' },
+              { cmd: 'theme [name]', desc: 'Change UI (standard, retro, cyberpunk...)' },
               { cmd: 'matrix', desc: 'Toggle Matrix mode' },
-              { cmd: 'sudo [cmd]', desc: 'Run as root' },
-              { cmd: 'clear', desc: 'Clear terminal' },
             ].map(c => (
               <div key={c.cmd} className="flex justify-between border-b border-gray-800 py-1">
                 <span className="text-yellow-300 font-bold">{c.cmd}</span>
@@ -179,14 +182,28 @@ const App: React.FC = () => {
         break;
 
       case 'skills':
+        // ASCII Progress Bars
+        const renderBar = (percent: number) => {
+            const filled = Math.floor((percent / 100) * 20);
+            const empty = 20 - filled;
+            return `[${'='.repeat(filled)}${'.'.repeat(empty)}] ${percent}%`;
+        };
+
         addOutput(
-          <div className="space-y-2">
-            {Object.entries(RESUME.skills).map(([cat, val]) => (
-              <div key={cat}>
-                <span className="uppercase font-bold text-purple-400 w-32 inline-block">{cat}:</span>
-                <span className="opacity-80">{val}</span>
-              </div>
-            ))}
+          <div className="space-y-2 text-sm">
+            <div><span className="font-bold text-purple-400 w-24 inline-block">Python</span> {renderBar(95)}</div>
+            <div><span className="font-bold text-blue-400 w-24 inline-block">TypeScript</span> {renderBar(90)}</div>
+            <div><span className="font-bold text-yellow-400 w-24 inline-block">React/Next</span> {renderBar(88)}</div>
+            <div><span className="font-bold text-green-400 w-24 inline-block">AI/ML</span> {renderBar(85)}</div>
+            <div><span className="font-bold text-orange-400 w-24 inline-block">Docker/K8s</span> {renderBar(75)}</div>
+            <br/>
+            <div className="opacity-70 text-xs">
+                {Object.entries(RESUME.skills).map(([cat, val]) => (
+                <div key={cat}>
+                    <span className="uppercase font-bold w-24 inline-block">{cat}:</span> {val}
+                </div>
+                ))}
+            </div>
           </div>
         );
         break;
@@ -222,6 +239,61 @@ const App: React.FC = () => {
             {NEOFETCH_ART}
           </pre>
         );
+        break;
+      
+      // --- New Search Integrations ---
+      case 'google':
+      case 'g':
+        const googleQuery = args.slice(1).join(' ');
+        if (!googleQuery) { addOutput(<p>Usage: google [query]</p>); break; }
+        window.open(`https://www.google.com/search?q=${encodeURIComponent(googleQuery)}`, '_blank');
+        addOutput(<p>>> Opening Google Search for: {googleQuery}</p>);
+        break;
+
+      case 'youtube':
+      case 'yt':
+        const ytQuery = args.slice(1).join(' ');
+        if (!ytQuery) { addOutput(<p>Usage: youtube [query]</p>); break; }
+        window.open(`https://www.youtube.com/results?search_query=${encodeURIComponent(ytQuery)}`, '_blank');
+        addOutput(<p>>> Opening YouTube Search for: {ytQuery}</p>);
+        break;
+
+      case 'wiki':
+        const wikiQuery = args.slice(1).join(' ');
+        if (!wikiQuery) { addOutput(<p>Usage: wiki [query]</p>); break; }
+        window.open(`https://en.wikipedia.org/wiki/Special:Search?search=${encodeURIComponent(wikiQuery)}`, '_blank');
+        addOutput(<p>>> Opening Wikipedia for: {wikiQuery}</p>);
+        break;
+        
+      case 'gh':
+      case 'github':
+        const ghQuery = args.slice(1).join(' ');
+        if (!ghQuery) { 
+             window.open(`https://${RESUME.contact.github}`, '_blank');
+             addOutput(<p>>> Opening Profile...</p>);
+        } else {
+             window.open(`https://github.com/search?q=${encodeURIComponent(ghQuery)}`, '_blank');
+             addOutput(<p>>> Searching GitHub for: {ghQuery}</p>);
+        }
+        break;
+
+      // --- Advanced Calculator ---
+      case 'calc':
+        const expr = args.slice(1).join(' ');
+        if (!expr) { addOutput(<p>Usage: calc [expression] (e.g. calc 2 + 2 * 4)</p>); break; }
+        try {
+            // Safe-ish evaluation for simple math
+            // eslint-disable-next-line no-new-func
+            const result = new Function('return ' + expr.replace(/[^0-9+\-*/().Math\s]/g, ''))();
+            addOutput(<p className="text-green-400">>> {result}</p>);
+        } catch (e) {
+            addOutput(<p className="text-red-400">Error: Invalid expression</p>);
+        }
+        break;
+
+      case 'snake':
+        setMode(TerminalMode.GAME);
+        addOutput(<p className="text-green-400">>> Launching Snake.exe...</p>);
         break;
 
       case 'whoami':
@@ -266,7 +338,7 @@ const App: React.FC = () => {
         } else {
           addOutput(
             <p className="text-red-400">
-              Theme not found. Available: standard, retro, ubuntu, dracula
+              Theme not found. Available: {Object.keys(THEMES).join(', ')}
             </p>
           );
         }
@@ -399,7 +471,23 @@ const App: React.FC = () => {
         break;
 
       default:
-        addOutput(<p className="text-red-400">Command not found: {cmd}. Type 'help' for options.</p>);
+        // Typo Correction Logic
+        const availableCommands = [
+           'help', 'about', 'experience', 'projects', 'skills', 'education', 'contact', 
+           'neofetch', 'cat', 'chat', 'edit_image', 'startx', 'gui', 'theme', 'matrix', 
+           'sudo', 'sl', 'vim', 'calc', 'google', 'youtube', 'wiki', 'snake'
+        ];
+        const correction = findBestMatch(mainCmd, availableCommands);
+        
+        if (correction) {
+             addOutput(
+                <p className="text-red-400">
+                    Command not found: {cmd}. Did you mean <span className="text-yellow-400 font-bold cursor-pointer border-b border-dashed" onClick={() => handleStandardCommand(correction)}>{correction}</span>?
+                </p>
+             );
+        } else {
+             addOutput(<p className="text-red-400">Command not found: {cmd}. Type 'help' for options.</p>);
+        }
     }
   };
 
@@ -438,7 +526,6 @@ const App: React.FC = () => {
     } else if (mode === TerminalMode.CHAT) {
       handleChatMode(input);
     } else if (mode === TerminalMode.IMAGE_EDIT) {
-      // Image edit text commands usually ignored if UI is up, but we support exit
       if (input.trim() === 'exit') {
          setMode(TerminalMode.STANDARD);
          addOutput(<p>>> Exited Image Editor.</p>);
@@ -466,6 +553,13 @@ const App: React.FC = () => {
         currentTheme
       }}
     />;
+  }
+  
+  if (mode === TerminalMode.GAME) {
+      return <SnakeGame onExit={() => {
+          setMode(TerminalMode.STANDARD);
+          addOutput(<p className="text-yellow-300">>> Game Over / Quit</p>);
+      }} />;
   }
 
   // Vim Mode Render
