@@ -70,10 +70,8 @@ const App: React.FC = () => {
         type: 'output',
         content: (
           <div className="mb-4">
-            <p>Welcome to Yashank Kothari's interactive portfolio.</p>
-            <p className="mt-2 opacity-80">Type <span className="text-yellow-300">help</span> to see available commands.</p>
-            <p className="opacity-80">Try <span className="text-blue-400">chat</span> to talk to AI or <span className="text-purple-400">edit_image</span> for AI tools.</p>
-            <p className="opacity-60 text-xs mt-2">Pro Tip: Use Up/Down arrows for history. Try 'neofetch', 'snake', or 'startx'.</p>
+            <p>Welcome to Yashank Kothari's interactive portfolio! (Version 1.6.9)</p>
+            <p className="mt-2">Type <span className="text-yellow-300">'help'</span> to see the list of available commands.</p>
           </div>
         )
       }
@@ -96,49 +94,45 @@ const App: React.FC = () => {
     
     switch (mainCmd) {
       case 'help':
-      case 'ls': // 'ls' in root acts like help but maybe lists fake files too
         addOutput(
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-2 max-w-2xl">
-            {[
-              { cmd: 'about', desc: 'Who am I?' },
-              { cmd: 'experience', desc: 'Work history' },
-              { cmd: 'projects', desc: 'Github highlights' },
-              { cmd: 'skills', desc: 'Tech stack (visual)' },
-              { cmd: 'education', desc: 'Academic background' },
-              { cmd: 'snake', desc: 'Play Snake Game' },
-              { cmd: 'calc [expr]', desc: 'Calculator' },
-              { cmd: 'google [q]', desc: 'Google Search' },
-              { cmd: 'neofetch', desc: 'System Info' },
-              { cmd: 'cat [file]', desc: 'Read file' },
-              { cmd: 'chat', desc: 'AI Assistant (Gemini 3 Pro)' },
-              { cmd: 'edit_image', desc: 'Nano Banana Image Editor' },
-              { cmd: 'startx / gui', desc: 'Launch Desktop GUI (Arch Mode)' },
-              { cmd: 'theme [name]', desc: 'Change UI (standard, retro, cyberpunk...)' },
-              { cmd: 'matrix', desc: 'Toggle Matrix mode' },
-            ].map(c => (
-              <div key={c.cmd} className="flex justify-between border-b border-gray-800 py-1">
-                <span className="text-yellow-300 font-bold">{c.cmd}</span>
-                <span className="opacity-70">{c.desc}</span>
-              </div>
-            ))}
-            {mainCmd === 'ls' && (
-               <div className="mt-2 pt-2 border-t border-gray-700">
-                  <p className="text-blue-300 font-bold">Files:</p>
-                  <div className="flex gap-4 text-sm">
-                     {Object.keys(VIRTUAL_FILES).map(f => <span key={f} className="text-gray-300">{f}</span>)}
-                  </div>
-               </div>
-            )}
+          <div className="space-y-4 max-w-2xl">
+            <div>
+                <p className="text-yellow-300 font-bold text-lg mb-2">Available Commands:</p>
+                <div className="grid grid-cols-1 gap-1 pl-2">
+                    <div><span className="text-cyan-400 font-bold">[who]</span> or <span className="text-cyan-400 font-bold">[w]</span></div>
+                    <div><span className="text-cyan-400 font-bold">[skills]</span> or <span className="text-cyan-400 font-bold">[s]</span></div>
+                    <div><span className="text-cyan-400 font-bold">[projects]</span> or <span className="text-cyan-400 font-bold">[pj]</span></div>
+                    <div><span className="text-cyan-400 font-bold">[miscellaneous]</span> or <span className="text-cyan-400 font-bold">[misc]</span></div>
+                    <div><span className="text-cyan-400 font-bold">[games]</span> or <span className="text-cyan-400 font-bold">[g]</span></div>
+                    <div><span className="text-cyan-400 font-bold">[blog]</span> or <span className="text-cyan-400 font-bold">[b]</span></div>
+                    <div><span className="text-cyan-400 font-bold">[resume]</span> or <span className="text-cyan-400 font-bold">[cv]</span></div>
+                    <div><span className="text-cyan-400 font-bold">[clear]</span></div>
+                </div>
+            </div>
+
+            <div>
+                <p className="text-yellow-300 font-bold text-lg mb-2 mt-4">Contact Me:</p>
+                <div className="grid grid-cols-1 gap-1 pl-2">
+                    <div><span className="text-cyan-400 font-bold">[email]</span></div>
+                    <div><span className="text-cyan-400 font-bold">[linkedin]</span></div>
+                    <div><span className="text-cyan-400 font-bold">[twitter]</span></div>
+                    <div><span className="text-cyan-400 font-bold">[github]</span></div>
+                </div>
+            </div>
           </div>
         );
         break;
       
+      case 'who':
+      case 'w':
       case 'about':
         addOutput(
           <div>
             <p className="text-xl font-bold mb-2">{RESUME.name}</p>
             <p className="mb-2">Bachelor of Technology Computer Engineering student with Honours in Data Science.</p>
             <p>Passionate about AI, Machine Learning, and Full Stack Development.</p>
+            <br/>
+            <p className="text-sm opacity-80">Type 'experience' to see work history.</p>
           </div>
         );
         break;
@@ -163,6 +157,7 @@ const App: React.FC = () => {
         break;
 
       case 'projects':
+      case 'pj':
         addOutput(
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
             {RESUME.projects.map((proj, i) => (
@@ -182,6 +177,7 @@ const App: React.FC = () => {
         break;
 
       case 'skills':
+      case 's':
         // ASCII Progress Bars
         const renderBar = (percent: number) => {
             const filled = Math.floor((percent / 100) * 20);
@@ -208,6 +204,25 @@ const App: React.FC = () => {
         );
         break;
 
+      case 'resume':
+      case 'cv':
+        addOutput(
+           <div>
+              <p className="text-green-400 mb-2">>> Generating Resume Summary...</p>
+              <div className="bg-slate-900 p-4 border border-gray-700 text-sm rounded">
+                 <h1 className="text-xl font-bold text-white">{RESUME.name}</h1>
+                 <p className="text-gray-400">{RESUME.contact.email} | {RESUME.contact.phone}</p>
+                 <hr className="my-2 border-gray-700"/>
+                 <h2 className="text-yellow-400 font-bold">Experience</h2>
+                 {RESUME.experience.map((e,i) => <p key={i}>- {e.role} at {e.company}</p>)}
+                 <br/>
+                 <h2 className="text-yellow-400 font-bold">Education</h2>
+                 {RESUME.education.map((e,i) => <p key={i}>- {e.degree}, {e.institution}</p>)}
+              </div>
+           </div>
+        );
+        break;
+
       case 'education':
         addOutput(
           <div className="space-y-2">
@@ -222,13 +237,53 @@ const App: React.FC = () => {
         );
         break;
 
+      // --- Contact Commands ---
       case 'contact':
         addOutput(
           <div className="space-y-1">
-             <p>Email: <a href={`mailto:${RESUME.contact.email}`} className="text-blue-400 hover:underline">{RESUME.contact.email}</a></p>
-             <p>Phone: {RESUME.contact.phone}</p>
-             <p>LinkedIn: <a href={`https://${RESUME.contact.linkedin}`} target="_blank" rel="noreferrer" className="text-blue-400 hover:underline">{RESUME.contact.linkedin}</a></p>
-             <p>GitHub: <a href={`https://${RESUME.contact.github}`} target="_blank" rel="noreferrer" className="text-blue-400 hover:underline">{RESUME.contact.github}</a></p>
+             <p>Type specific command to open:</p>
+             <p className="ml-4 text-cyan-400">[email] [linkedin] [twitter] [github]</p>
+          </div>
+        );
+        break;
+      
+      case 'email':
+        addOutput(<p>>> Opening mail client...</p>);
+        window.location.href = `mailto:${RESUME.contact.email}`;
+        break;
+      
+      case 'linkedin':
+        addOutput(<p>>> Opening LinkedIn profile...</p>);
+        window.open(`https://${RESUME.contact.linkedin}`, '_blank');
+        break;
+
+      case 'github':
+      case 'gh':
+        addOutput(<p>>> Opening GitHub profile...</p>);
+        window.open(`https://${RESUME.contact.github}`, '_blank');
+        break;
+
+      case 'twitter':
+        // Assuming twitter is added to constants, otherwise using generic
+        addOutput(<p>>> Opening Twitter...</p>);
+        window.open(`https://twitter.com/yashankkothari`, '_blank'); // Fallback/Example
+        break;
+      
+      case 'blog':
+      case 'b':
+        addOutput(<p className="text-yellow-300">>> Blog is currently under construction. Check back later!</p>);
+        break;
+
+      case 'misc':
+      case 'miscellaneous':
+        addOutput(
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-2 max-w-xl">
+             <div><span className="text-pink-400 font-bold">neofetch</span> - System Info</div>
+             <div><span className="text-pink-400 font-bold">matrix</span> - Toggle Matrix Rain</div>
+             <div><span className="text-pink-400 font-bold">weather</span> - Current Weather</div>
+             <div><span className="text-pink-400 font-bold">startx</span> - Launch GUI</div>
+             <div><span className="text-pink-400 font-bold">theme</span> - Change colors</div>
+             <div><span className="text-pink-400 font-bold">calc</span> - Calculator</div>
           </div>
         );
         break;
@@ -241,9 +296,19 @@ const App: React.FC = () => {
         );
         break;
       
-      // --- New Search Integrations ---
-      case 'google':
+      case 'games':
       case 'g':
+         addOutput(
+            <div>
+               <p className="mb-2">Available Games:</p>
+               <div className="pl-2">
+                  <div><span className="text-green-400 font-bold">[snake]</span> - Classic Snake Game</div>
+               </div>
+            </div>
+         );
+         break;
+
+      case 'google':
         const googleQuery = args.slice(1).join(' ');
         if (!googleQuery) { addOutput(<p>Usage: google [query]</p>); break; }
         window.open(`https://www.google.com/search?q=${encodeURIComponent(googleQuery)}`, '_blank');
@@ -264,20 +329,7 @@ const App: React.FC = () => {
         window.open(`https://en.wikipedia.org/wiki/Special:Search?search=${encodeURIComponent(wikiQuery)}`, '_blank');
         addOutput(<p>>> Opening Wikipedia for: {wikiQuery}</p>);
         break;
-        
-      case 'gh':
-      case 'github':
-        const ghQuery = args.slice(1).join(' ');
-        if (!ghQuery) { 
-             window.open(`https://${RESUME.contact.github}`, '_blank');
-             addOutput(<p>>> Opening Profile...</p>);
-        } else {
-             window.open(`https://github.com/search?q=${encodeURIComponent(ghQuery)}`, '_blank');
-             addOutput(<p>>> Searching GitHub for: {ghQuery}</p>);
-        }
-        break;
 
-      // --- Advanced Calculator ---
       case 'calc':
         const expr = args.slice(1).join(' ');
         if (!expr) { addOutput(<p>Usage: calc [expression] (e.g. calc 2 + 2 * 4)</p>); break; }
@@ -439,10 +491,8 @@ const App: React.FC = () => {
             type: 'output',
             content: (
               <div className="mb-4">
-                <p>Welcome to Yashank Kothari's interactive portfolio.</p>
-                <p className="mt-2 opacity-80">Type <span className="text-yellow-300">help</span> to see available commands.</p>
-                <p className="opacity-80">Try <span className="text-blue-400">chat</span> to talk to AI or <span className="text-purple-400">edit_image</span> for AI tools.</p>
-                <p className="opacity-60 text-xs mt-2">Pro Tip: Use Up/Down arrows for history. Try 'neofetch' or 'startx'.</p>
+                <p>Welcome to Yashank Kothari's interactive portfolio! (Version 1.6.9)</p>
+                <p className="mt-2">Type <span className="text-yellow-300">'help'</span> to see the list of available commands.</p>
               </div>
             )
           }
@@ -473,9 +523,10 @@ const App: React.FC = () => {
       default:
         // Typo Correction Logic
         const availableCommands = [
-           'help', 'about', 'experience', 'projects', 'skills', 'education', 'contact', 
+           'help', 'about', 'experience', 'projects', 'skills', 'contact', 
            'neofetch', 'cat', 'chat', 'edit_image', 'startx', 'gui', 'theme', 'matrix', 
-           'sudo', 'sl', 'vim', 'calc', 'google', 'youtube', 'wiki', 'snake'
+           'sudo', 'sl', 'vim', 'calc', 'google', 'youtube', 'wiki', 'snake', 
+           'who', 'w', 's', 'pj', 'g', 'b', 'misc', 'cv'
         ];
         const correction = findBestMatch(mainCmd, availableCommands);
         
