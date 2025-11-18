@@ -85,6 +85,11 @@ const App: React.FC = () => {
   // COMMAND HANDLERS
   // -------------------------------------------------------------------------
 
+  const runCommand = (cmd: string) => {
+    addInputLine(cmd, mode);
+    handleStandardCommand(cmd);
+  };
+
   const handleStandardCommand = async (cmdRaw: string) => {
     const cmd = cmdRaw.trim();
     const args = cmd.split(' ');
@@ -100,26 +105,52 @@ const App: React.FC = () => {
         addOutput(
           <div className="space-y-4 max-w-2xl">
             <div>
-                <p className="text-yellow-300 font-bold text-lg mb-2">Available Commands:</p>
+                <p className="text-yellow-300 font-bold text-lg mb-2">Portfolio Sections:</p>
                 <div className="grid grid-cols-1 gap-1 pl-2">
-                    <div><span className="text-cyan-400 font-bold">[who]</span> or <span className="text-cyan-400 font-bold">[w]</span></div>
-                    <div><span className="text-cyan-400 font-bold">[skills]</span> or <span className="text-cyan-400 font-bold">[s]</span></div>
-                    <div><span className="text-cyan-400 font-bold">[projects]</span> or <span className="text-cyan-400 font-bold">[pj]</span></div>
-                    <div><span className="text-cyan-400 font-bold">[miscellaneous]</span> or <span className="text-cyan-400 font-bold">[misc]</span></div>
-                    <div><span className="text-cyan-400 font-bold">[games]</span> or <span className="text-cyan-400 font-bold">[g]</span></div>
-                    <div><span className="text-cyan-400 font-bold">[blog]</span> or <span className="text-cyan-400 font-bold">[b]</span></div>
-                    <div><span className="text-cyan-400 font-bold">[resume]</span> or <span className="text-cyan-400 font-bold">[cv]</span></div>
-                    <div><span className="text-cyan-400 font-bold">[clear]</span></div>
+                    <div>
+                        <span className="text-cyan-400 font-bold cursor-pointer hover:underline" onClick={() => runCommand('who')}>[who]</span> or 
+                        <span className="text-cyan-400 font-bold cursor-pointer hover:underline ml-1" onClick={() => runCommand('w')}>[w]</span> - About Me
+                    </div>
+                    <div>
+                        <span className="text-cyan-400 font-bold cursor-pointer hover:underline" onClick={() => runCommand('skills')}>[skills]</span> or 
+                        <span className="text-cyan-400 font-bold cursor-pointer hover:underline ml-1" onClick={() => runCommand('s')}>[s]</span> - Technical Skills
+                    </div>
+                    <div>
+                        <span className="text-cyan-400 font-bold cursor-pointer hover:underline" onClick={() => runCommand('projects')}>[projects]</span> or 
+                        <span className="text-cyan-400 font-bold cursor-pointer hover:underline ml-1" onClick={() => runCommand('pj')}>[pj]</span> - Key Projects
+                    </div>
+                    <div>
+                        <span className="text-cyan-400 font-bold cursor-pointer hover:underline" onClick={() => runCommand('resume')}>[resume]</span> or 
+                        <span className="text-cyan-400 font-bold cursor-pointer hover:underline ml-1" onClick={() => runCommand('cv')}>[cv]</span> - View Resume
+                    </div>
+                    <div>
+                        <span className="text-cyan-400 font-bold cursor-pointer hover:underline" onClick={() => runCommand('contact')}>[contact]</span> - Email & Socials
+                    </div>
                 </div>
             </div>
 
             <div>
-                <p className="text-yellow-300 font-bold text-lg mb-2 mt-4">Contact Me:</p>
-                <div className="grid grid-cols-1 gap-1 pl-2">
-                    <div><span className="text-cyan-400 font-bold">[email]</span></div>
-                    <div><span className="text-cyan-400 font-bold">[linkedin]</span></div>
-                    <div><span className="text-cyan-400 font-bold">[twitter]</span></div>
-                    <div><span className="text-cyan-400 font-bold">[github]</span></div>
+                <p className="text-yellow-300 font-bold text-lg mb-2 mt-4">System & Tools:</p>
+                <div className="grid grid-cols-2 gap-1 pl-2">
+                    <div><span className="text-pink-400 font-bold cursor-pointer hover:underline" onClick={() => runCommand('neofetch')}>[neofetch]</span> info</div>
+                    <div><span className="text-pink-400 font-bold cursor-pointer hover:underline" onClick={() => runCommand('monitor')}>[monitor]</span> htop</div>
+                    <div><span className="text-pink-400 font-bold cursor-pointer hover:underline" onClick={() => runCommand('games')}>[games]</span> play</div>
+                    <div><span className="text-pink-400 font-bold cursor-pointer hover:underline" onClick={() => runCommand('startx')}>[startx]</span> gui</div>
+                    <div><span className="text-pink-400 font-bold cursor-pointer hover:underline" onClick={() => runCommand('matrix')}>[matrix]</span> rain</div>
+                    <div><span className="text-pink-400 font-bold cursor-pointer hover:underline" onClick={() => runCommand('chat')}>[chat]</span> ai</div>
+                </div>
+            </div>
+
+            <div>
+                <p className="text-yellow-300 font-bold text-lg mb-2 mt-4">Linux Basics:</p>
+                 <div className="grid grid-cols-2 gap-1 pl-2 max-w-md">
+                    <div><span className="text-green-400 font-bold cursor-pointer hover:underline" onClick={() => runCommand('ls')}>[ls]</span> list</div>
+                    <div><span className="text-green-400 font-bold cursor-pointer hover:underline" onClick={() => runCommand('pwd')}>[pwd]</span> path</div>
+                    <div><span className="text-green-400 font-bold cursor-pointer hover:underline" onClick={() => runCommand('date')}>[date]</span> time</div>
+                    <div><span className="text-green-400 font-bold cursor-pointer hover:underline" onClick={() => runCommand('echo Hello')}>[echo]</span> print</div>
+                    <div><span className="text-green-400 font-bold cursor-pointer hover:underline" onClick={() => runCommand('ping')}>[ping]</span> net</div>
+                    <div><span className="text-green-400 font-bold cursor-pointer hover:underline" onClick={() => runCommand('cowsay Hi')}>[cowsay]</span> moo</div>
+                    <div><span className="text-green-400 font-bold cursor-pointer hover:underline" onClick={() => runCommand('fortune')}>[fortune]</span> quote</div>
                 </div>
             </div>
           </div>
@@ -214,7 +245,7 @@ const App: React.FC = () => {
               <p className="text-green-400 mb-2">>> Generating Resume Summary...</p>
               <div className="bg-slate-900 p-4 border border-gray-700 text-sm rounded">
                  <h1 className="text-xl font-bold text-white">{RESUME.name}</h1>
-                 <p className="text-gray-400">{RESUME.contact.email} | {RESUME.contact.phone}</p>
+                 <p className="text-gray-400">{RESUME.contact.email}</p>
                  <hr className="my-2 border-gray-700"/>
                  <h2 className="text-yellow-400 font-bold">Experience</h2>
                  {RESUME.experience.map((e,i) => <p key={i}>- {e.role} at {e.company}</p>)}
@@ -245,7 +276,12 @@ const App: React.FC = () => {
         addOutput(
           <div className="space-y-1">
              <p>Type specific command to open:</p>
-             <p className="ml-4 text-cyan-400">[email] [linkedin] [twitter] [github]</p>
+             <p className="ml-4 text-cyan-400">
+                <span className="cursor-pointer hover:underline" onClick={() => runCommand('email')}>[email]</span>&nbsp;
+                <span className="cursor-pointer hover:underline" onClick={() => runCommand('linkedin')}>[linkedin]</span>&nbsp;
+                <span className="cursor-pointer hover:underline" onClick={() => runCommand('twitter')}>[twitter]</span>&nbsp;
+                <span className="cursor-pointer hover:underline" onClick={() => runCommand('github')}>[github]</span>
+             </p>
           </div>
         );
         break;
@@ -267,9 +303,8 @@ const App: React.FC = () => {
         break;
 
       case 'twitter':
-        // Assuming twitter is added to constants, otherwise using generic
         addOutput(<p>>> Opening Twitter...</p>);
-        window.open(`https://twitter.com/yashankkothari`, '_blank'); // Fallback/Example
+        window.open(`https://${RESUME.contact.twitter}`, '_blank');
         break;
       
       case 'blog':
@@ -281,13 +316,13 @@ const App: React.FC = () => {
       case 'miscellaneous':
         addOutput(
           <div className="grid grid-cols-1 md:grid-cols-2 gap-2 max-w-xl">
-             <div><span className="text-pink-400 font-bold">neofetch</span> - System Info</div>
-             <div><span className="text-pink-400 font-bold">matrix</span> - Toggle Matrix Rain</div>
-             <div><span className="text-pink-400 font-bold">monitor</span> - System Monitor</div>
-             <div><span className="text-pink-400 font-bold">weather</span> - Current Weather</div>
-             <div><span className="text-pink-400 font-bold">startx</span> - Launch GUI</div>
-             <div><span className="text-pink-400 font-bold">theme</span> - Change colors</div>
-             <div><span className="text-pink-400 font-bold">calc</span> - Calculator</div>
+             <div><span className="text-pink-400 font-bold cursor-pointer hover:underline" onClick={() => runCommand('neofetch')}>neofetch</span> - System Info</div>
+             <div><span className="text-pink-400 font-bold cursor-pointer hover:underline" onClick={() => runCommand('matrix')}>matrix</span> - Toggle Matrix Rain</div>
+             <div><span className="text-pink-400 font-bold cursor-pointer hover:underline" onClick={() => runCommand('monitor')}>monitor</span> - System Monitor</div>
+             <div><span className="text-pink-400 font-bold cursor-pointer hover:underline" onClick={() => runCommand('weather')}>weather</span> - Current Weather</div>
+             <div><span className="text-pink-400 font-bold cursor-pointer hover:underline" onClick={() => runCommand('startx')}>startx</span> - Launch GUI</div>
+             <div><span className="text-pink-400 font-bold cursor-pointer hover:underline" onClick={() => runCommand('theme retro')}>theme</span> - Change colors</div>
+             <div><span className="text-pink-400 font-bold cursor-pointer hover:underline" onClick={() => runCommand('calc 2+2')}>calc</span> - Calculator</div>
           </div>
         );
         break;
@@ -306,14 +341,133 @@ const App: React.FC = () => {
             <div>
                <p className="mb-2">Available Games:</p>
                <div className="pl-2">
-                  <div><span className="text-green-400 font-bold">[snake]</span> - Classic Snake</div>
-                  <div><span className="text-green-400 font-bold">[minesweeper]</span> - Find Mines</div>
-                  <div><span className="text-green-400 font-bold">[ttt]</span> - Tic-Tac-Toe</div>
+                  <div><span className="text-green-400 font-bold cursor-pointer hover:underline" onClick={() => runCommand('snake')}>[snake]</span> - Classic Snake</div>
+                  <div><span className="text-green-400 font-bold cursor-pointer hover:underline" onClick={() => runCommand('minesweeper')}>[minesweeper]</span> - Find Mines</div>
+                  <div><span className="text-green-400 font-bold cursor-pointer hover:underline" onClick={() => runCommand('ttt')}>[ttt]</span> - Tic-Tac-Toe</div>
                </div>
             </div>
          );
          break;
 
+      // --- Linux Utilities ---
+      
+      case 'ls':
+      case 'll':
+        addOutput(
+          <div className="grid grid-cols-3 gap-4 max-w-md text-sm">
+            <span className="text-blue-400 font-bold cursor-pointer hover:underline" onClick={() => runCommand('projects')}>projects/</span>
+            <span className="text-blue-400 font-bold cursor-pointer hover:underline" onClick={() => runCommand('experience')}>experience/</span>
+            <span className="text-blue-400 font-bold cursor-pointer hover:underline" onClick={() => runCommand('skills')}>skills/</span>
+            {Object.keys(VIRTUAL_FILES).map(f => (
+              <span key={f} className="text-white">{f}</span>
+            ))}
+          </div>
+        );
+        break;
+
+      case 'pwd':
+        addOutput(<p>/home/guest</p>);
+        break;
+        
+      case 'date':
+        addOutput(<p>{new Date().toString()}</p>);
+        break;
+
+      case 'echo':
+        addOutput(<p>{args.slice(1).join(' ')}</p>);
+        break;
+
+      case 'cowsay':
+        const sayText = args.slice(1).join(' ') || "Moo! I'm a cow.";
+        const len = sayText.length;
+        const line = '-'.repeat(len + 2);
+        const cow = `
+ ${'_'.repeat(len + 2)}
+< ${sayText} >
+ ${line}
+        \\   ^__^
+         \\  (oo)\\_______
+            (__)\\       )\\/\\
+                ||----w |
+                ||     ||
+        `;
+        addOutput(<pre className="whitespace-pre text-yellow-300">{cow}</pre>);
+        break;
+
+      case 'fortune':
+        const quotes = [
+            "There is no place like 127.0.0.1",
+            "It works on my machine.",
+            "sudo make me a sandwich.",
+            "To understand recursion you must first understand recursion.",
+            "Linux is only free if your time has no value.",
+            "Have you tried turning it off and on again?",
+            "The cloud is just someone else's computer."
+        ];
+        const randomQuote = quotes[Math.floor(Math.random() * quotes.length)];
+        addOutput(<p className="text-purple-300 italic">"{randomQuote}"</p>);
+        break;
+
+      case 'ping':
+        const host = args[1] || 'google.com';
+        setLoading(true);
+        addOutput(<p>PING {host} (127.0.0.1): 56 data bytes</p>);
+        
+        // Simulate async ping
+        for (let i = 0; i < 4; i++) {
+             await new Promise(r => setTimeout(r, 800));
+             const time = (Math.random() * 50).toFixed(2);
+             addOutput(<p>64 bytes from 127.0.0.1: icmp_seq={i} ttl=64 time={time} ms</p>);
+        }
+        await new Promise(r => setTimeout(r, 800));
+        addOutput(
+            <div>
+                <p>--- {host} ping statistics ---</p>
+                <p>4 packets transmitted, 4 packets received, 0.0% packet loss</p>
+            </div>
+        );
+        setLoading(false);
+        break;
+      
+      case 'reboot':
+        setLoading(true);
+        addOutput(<p className="text-red-400">System rebooting...</p>);
+        setTimeout(() => {
+            window.location.reload();
+        }, 1500);
+        break;
+
+      case 'man':
+        const manCmd = args[1];
+        if (!manCmd) {
+            addOutput(<p>What manual page do you want?</p>);
+        } else {
+            const descriptions: Record<string, string> = {
+                ls: 'List directory contents.',
+                cat: 'Concatenate files and print on the standard output.',
+                cowsay: 'Configurable speaking cow.',
+                neofetch: 'A command-line system information tool.',
+                sudo: 'Execute a command as another user.',
+                ping: 'Send ICMP ECHO_REQUEST to network hosts.',
+                who: 'Show who is logged on (about me).',
+                grep: 'Print lines that match patterns.'
+            };
+            
+            if (descriptions[manCmd]) {
+                addOutput(
+                    <div className="bg-gray-800 p-2 border border-gray-600 max-w-md">
+                        <p className="font-bold uppercase">{manCmd}(1)</p>
+                        <p className="mt-2 font-bold text-yellow-400">NAME</p>
+                        <p className="pl-4">{manCmd} - {descriptions[manCmd]}</p>
+                    </div>
+                );
+            } else {
+                 addOutput(<p>No manual entry for {manCmd}</p>);
+            }
+        }
+        break;
+
+      // --- External/Misc ---
       case 'google':
         const googleQuery = args.slice(1).join(' ');
         if (!googleQuery) { addOutput(<p>Usage: google [query]</p>); break; }
@@ -551,7 +705,8 @@ const App: React.FC = () => {
            'help', 'about', 'experience', 'projects', 'skills', 'contact', 
            'neofetch', 'cat', 'chat', 'edit_image', 'startx', 'gui', 'theme', 'matrix', 
            'sudo', 'sl', 'vim', 'calc', 'google', 'youtube', 'wiki', 'snake', 'minesweeper',
-           'who', 'w', 's', 'pj', 'g', 'b', 'misc', 'cv', 'monitor', 'ttt'
+           'who', 'w', 's', 'pj', 'g', 'b', 'misc', 'cv', 'monitor', 'ttt',
+           'ls', 'pwd', 'date', 'echo', 'cowsay', 'fortune', 'ping', 'man', 'reboot'
         ];
         const correction = findBestMatch(mainCmd, availableCommands);
         

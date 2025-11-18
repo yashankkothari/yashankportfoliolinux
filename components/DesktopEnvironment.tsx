@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect, useRef } from 'react';
 import { RESUME } from '../constants';
 import TerminalInput from './TerminalInput';
@@ -564,6 +565,7 @@ const DesktopEnvironment: React.FC<DesktopEnvironmentProps> = ({ onExit, termina
                         { label: 'Email', val: RESUME.contact.email, href: `mailto:${RESUME.contact.email}`, color: 'bg-red-500' },
                         { label: 'GitHub', val: 'yashankkothari', href: `https://${RESUME.contact.github}`, color: 'bg-gray-800' },
                         { label: 'LinkedIn', val: 'in/yashankkothari', href: `https://${RESUME.contact.linkedin}`, color: 'bg-blue-600' },
+                        { label: 'Twitter', val: '@yashanktwt', href: `https://${RESUME.contact.twitter}`, color: 'bg-sky-500' },
                     ].map((c, i) => (
                         <a 
                             key={i} 

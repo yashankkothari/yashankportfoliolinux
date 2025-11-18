@@ -4,10 +4,10 @@ import { ResumeData, ThemeName, ThemeColors } from './types';
 export const RESUME: ResumeData = {
   name: "Yashank Kothari",
   contact: {
-    phone: "+91 9653124192",
     email: "kothariyashank@gmail.com",
     linkedin: "linkedin.com/in/yashankkothari",
-    github: "github.com/yashankkothari"
+    github: "github.com/yashankkothari",
+    twitter: "twitter.com/yashanktwt"
   },
   education: [
     {

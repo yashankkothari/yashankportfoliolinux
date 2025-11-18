@@ -55,10 +55,10 @@ export interface Education {
 export interface ResumeData {
   name: string;
   contact: {
-    phone: string;
     email: string;
     linkedin: string;
     github: string;
+    twitter: string;
   };
   education: Education[];
   experience: Experience[];
