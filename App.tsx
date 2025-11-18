@@ -7,6 +7,9 @@ import ImageEditor from './components/ImageEditor';
 import MatrixRain from './components/MatrixRain';
 import DesktopEnvironment from './components/DesktopEnvironment';
 import SnakeGame from './components/SnakeGame';
+import Minesweeper from './components/Minesweeper';
+import TicTacToe from './components/TicTacToe';
+import SystemMonitor from './components/SystemMonitor';
 import { chatWithGemini } from './services/geminiService';
 import { findBestMatch } from './utils';
 
@@ -70,7 +73,7 @@ const App: React.FC = () => {
         type: 'output',
         content: (
           <div className="mb-4">
-            <p>Welcome to Yashank Kothari's interactive portfolio! (Version 1.6.9)</p>
+            <p>Welcome to Yashank Kothari's interactive portfolio! (Version 1.7.0)</p>
             <p className="mt-2">Type <span className="text-yellow-300">'help'</span> to see the list of available commands.</p>
           </div>
         )
@@ -280,6 +283,7 @@ const App: React.FC = () => {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-2 max-w-xl">
              <div><span className="text-pink-400 font-bold">neofetch</span> - System Info</div>
              <div><span className="text-pink-400 font-bold">matrix</span> - Toggle Matrix Rain</div>
+             <div><span className="text-pink-400 font-bold">monitor</span> - System Monitor</div>
              <div><span className="text-pink-400 font-bold">weather</span> - Current Weather</div>
              <div><span className="text-pink-400 font-bold">startx</span> - Launch GUI</div>
              <div><span className="text-pink-400 font-bold">theme</span> - Change colors</div>
@@ -302,7 +306,9 @@ const App: React.FC = () => {
             <div>
                <p className="mb-2">Available Games:</p>
                <div className="pl-2">
-                  <div><span className="text-green-400 font-bold">[snake]</span> - Classic Snake Game</div>
+                  <div><span className="text-green-400 font-bold">[snake]</span> - Classic Snake</div>
+                  <div><span className="text-green-400 font-bold">[minesweeper]</span> - Find Mines</div>
+                  <div><span className="text-green-400 font-bold">[ttt]</span> - Tic-Tac-Toe</div>
                </div>
             </div>
          );
@@ -346,6 +352,25 @@ const App: React.FC = () => {
       case 'snake':
         setMode(TerminalMode.GAME);
         addOutput(<p className="text-green-400">>> Launching Snake.exe...</p>);
+        break;
+
+      case 'minesweeper':
+      case 'mine':
+        setMode(TerminalMode.MINESWEEPER);
+        addOutput(<p className="text-yellow-400">>> Launching Minesweeper...</p>);
+        break;
+
+      case 'tictactoe':
+      case 'ttt':
+        setMode(TerminalMode.TICTACTOE);
+        addOutput(<p className="text-blue-400">>> Launching Tic-Tac-Toe...</p>);
+        break;
+
+      case 'monitor':
+      case 'htop':
+      case 'top':
+        setMode(TerminalMode.MONITOR);
+        addOutput(<p className="text-green-400">>> Initializing System Monitor...</p>);
         break;
 
       case 'whoami':
@@ -491,7 +516,7 @@ const App: React.FC = () => {
             type: 'output',
             content: (
               <div className="mb-4">
-                <p>Welcome to Yashank Kothari's interactive portfolio! (Version 1.6.9)</p>
+                <p>Welcome to Yashank Kothari's interactive portfolio! (Version 1.7.0)</p>
                 <p className="mt-2">Type <span className="text-yellow-300">'help'</span> to see the list of available commands.</p>
               </div>
             )
@@ -525,8 +550,8 @@ const App: React.FC = () => {
         const availableCommands = [
            'help', 'about', 'experience', 'projects', 'skills', 'contact', 
            'neofetch', 'cat', 'chat', 'edit_image', 'startx', 'gui', 'theme', 'matrix', 
-           'sudo', 'sl', 'vim', 'calc', 'google', 'youtube', 'wiki', 'snake', 
-           'who', 'w', 's', 'pj', 'g', 'b', 'misc', 'cv'
+           'sudo', 'sl', 'vim', 'calc', 'google', 'youtube', 'wiki', 'snake', 'minesweeper',
+           'who', 'w', 's', 'pj', 'g', 'b', 'misc', 'cv', 'monitor', 'ttt'
         ];
         const correction = findBestMatch(mainCmd, availableCommands);
         
@@ -610,6 +635,27 @@ const App: React.FC = () => {
       return <SnakeGame onExit={() => {
           setMode(TerminalMode.STANDARD);
           addOutput(<p className="text-yellow-300">>> Game Over / Quit</p>);
+      }} />;
+  }
+
+  if (mode === TerminalMode.MINESWEEPER) {
+      return <Minesweeper onExit={() => {
+          setMode(TerminalMode.STANDARD);
+          addOutput(<p className="text-yellow-300">>> Minesweeper Closed.</p>);
+      }} />;
+  }
+
+  if (mode === TerminalMode.TICTACTOE) {
+      return <TicTacToe onExit={() => {
+          setMode(TerminalMode.STANDARD);
+          addOutput(<p className="text-yellow-300">>> Tic-Tac-Toe Closed.</p>);
+      }} />;
+  }
+
+  if (mode === TerminalMode.MONITOR) {
+      return <SystemMonitor onExit={() => {
+          setMode(TerminalMode.STANDARD);
+          addOutput(<p className="text-green-300">>> Monitor Stopped.</p>);
       }} />;
   }
 

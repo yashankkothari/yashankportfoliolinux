@@ -6,7 +6,10 @@ export enum TerminalMode {
   CHAT = 'CHAT',
   IMAGE_EDIT = 'IMAGE_EDIT',
   VIM = 'VIM',
-  GAME = 'GAME'
+  GAME = 'GAME', // Snake
+  MINESWEEPER = 'MINESWEEPER',
+  TICTACTOE = 'TICTACTOE',
+  MONITOR = 'MONITOR'
 }
 
 export enum ViewMode {
